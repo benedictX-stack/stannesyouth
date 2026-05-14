@@ -675,8 +675,36 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-[#080808] flex flex-col md:flex-row text-cream relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(232,115,74,0.07),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.05),transparent_28%)] pointer-events-none" />
       <div className="absolute left-1/2 top-0 h-px w-1/2 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+      <div className="md:hidden sticky top-0 z-30 border-b border-white/10 bg-black/80 backdrop-blur-2xl">
+        <div className="flex items-center justify-between gap-3 px-4 py-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <img src="/logo.png" alt="St. Anne's Youth logo" className="h-11 w-11 object-contain shrink-0" />
+            <div className="min-w-0">
+              <h1 className="font-['Space_Grotesk'] text-sm font-bold tracking-tight text-gold uppercase leading-tight">ST. ANNE'S YOUTH</h1>
+              <p className="font-['Outfit'] text-cream/40 text-xs">Admin Dashboard</p>
+            </div>
+          </div>
+          <button onClick={handleLogout} className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-red-400/15 bg-red-400/10 text-red-300">
+            <LogOut size={16} />
+          </button>
+        </div>
+        <nav className="flex gap-2 overflow-x-auto px-4 pb-3 [-ms-overflow-style:none] [scrollbar-width:none]">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                className={`shrink-0 flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 transition-all duration-300 ${isActive ? 'border-gold/25 bg-gold/15 text-gold' : 'border-white/10 bg-white/[0.035] text-cream/55'}`}>
+                <Icon size={15} />
+                <span className="font-['Space_Grotesk'] text-xs font-semibold tracking-tight whitespace-nowrap">{tab.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+
       {/* Sidebar */}
-      <aside className="w-full md:w-72 border-r border-white/10 bg-black/35 backdrop-blur-3xl flex flex-col relative z-10 shadow-2xl shadow-black/40">
+      <aside className="hidden md:flex w-72 border-r border-white/10 bg-black/35 backdrop-blur-3xl flex-col relative z-10 shadow-2xl shadow-black/40">
         <div className="p-6 border-b border-white/10">
           <div className="flex items-center gap-4">
             <div className="relative">
@@ -719,21 +747,21 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main */}
-      <main className="flex-1 p-5 md:p-8 lg:p-12 overflow-y-auto relative z-10">
+      <main className="flex-1 p-4 pb-8 md:p-8 lg:p-12 overflow-y-auto relative z-10">
         <div className="ambient-glow-ocean absolute top-0 right-0 opacity-10 pointer-events-none" />
         <div className="ambient-glow-sunset absolute bottom-0 left-1/4 opacity-10 pointer-events-none" />
         <div className="max-w-5xl mx-auto relative z-10">
-          <header className="mb-8 rounded-[2rem] border border-white/10 bg-white/[0.04] backdrop-blur-3xl p-6 md:p-8 shadow-2xl shadow-black/20 overflow-hidden relative">
+          <header className="mb-5 md:mb-8 rounded-[1.5rem] md:rounded-[2rem] border border-white/10 bg-white/[0.04] backdrop-blur-3xl p-5 md:p-8 shadow-2xl shadow-black/20 overflow-hidden relative">
             <div className="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-white/[0.04] blur-2xl" />
             <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-5">
               <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-gold/10 px-3 py-1 text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-4">
+                <div className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-gold/10 px-3 py-1 text-gold text-[10px] uppercase tracking-[0.25em] font-semibold mb-3 md:mb-4">
                   <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
                   Live Dashboard
                 </div>
-                <h2 className="font-['Space_Grotesk'] text-4xl md:text-5xl font-bold tracking-tight text-cream mb-2 capitalize">{tabs.find(t => t.id === activeTab)?.label}</h2>
+                <h2 className="font-['Space_Grotesk'] text-3xl md:text-5xl font-bold tracking-tight text-cream mb-2 capitalize">{tabs.find(t => t.id === activeTab)?.label}</h2>
               </div>
-              <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
+              <div className="hidden md:flex items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
                 <img src="/logo.png" alt="St. Anne's Youth logo" className="h-10 w-10 object-contain" />
                 <div>
                   <p className="font-['Space_Grotesk'] text-gold text-sm font-bold tracking-tight uppercase">ST. ANNE'S YOUTH</p>
